@@ -5,7 +5,10 @@ import { Header } from '../components/Header';
 import { Task, TasksList } from '../components/TasksList';
 import { TodoInput } from '../components/TodoInput';
 
-
+export type EditTaskArgs = {
+  taskId: number,
+  newTaskTitle: string
+}
 
 export function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -18,25 +21,17 @@ export function Home() {
       done: false
     }
     const checkTask = tasks.find(item => item.title === newTaskTitle)
-    setTasks(oldState => [...oldState, newTask])
 
     checkTask ?
-      // Alert.alert(
-      //   'Task já cadastrada',
-      //   'Você não pode cadastrar uma task com o mesmo nome.',
-      //   [
-      //     { text: 'OK' },
-      //   ]
-      // )
-      console.log('Existe task')
+      Alert.alert(
+        'Task já cadastrada',
+        'Você não pode cadastrar uma task com o mesmo nome.',
+        [
+          { text: 'OK' },
+        ]
+      )
       :
-      console.log('Não existe task task')
-
-    // setTasks(oldState => [...oldState, newTask])
-
-
-    console.log(checkTask)
-
+      setTasks(oldState => [...oldState, newTask])
   }
 
   function handleToggleTaskDone(id: number) {
@@ -61,13 +56,14 @@ export function Home() {
     );
   }
 
-  function handleEditTask(taskId: number, taskNewTitle: string) {
+  function handleEditTask({ taskId, newTaskTitle }: EditTaskArgs) {
     const updatedTasks = tasks.map(task => ({ ...task }))
     const item = updatedTasks.find(item => item.id === taskId)
     if (!item)
       return
-    item.title = taskNewTitle
+    item.title = newTaskTitle
   }
+
   return (
     <View style={styles.container}>
       <Header tasksCounter={tasks.length} />
@@ -78,6 +74,7 @@ export function Home() {
         tasks={tasks}
         toggleTaskDone={handleToggleTaskDone}
         removeTask={handleRemoveTask}
+        editTask={handleEditTask}
       />
     </View>
   )
