@@ -12,6 +12,7 @@ As funcionalidades do aplicativo são:
 <br/>
 Nesse desafio, você deverá criar uma aplicação para treinar o que aprendeu até agora no React Native.
 Essa será uma continuação da aplicação de lembrete de tarefas desenvolvida no desafio anterior, onde você vai treinar um pouco mais sobre propriedades e componentização no React.
+<br/>
 As funcionalidades do aplicativo são:
 
 - Edição de uma tarefa;
